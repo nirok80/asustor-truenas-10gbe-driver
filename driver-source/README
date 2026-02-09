@@ -1,0 +1,66 @@
+AMD-XGBE for TRUENAS on ASUSTOR
+===============================
+
+This is a patched "amd-xgbe" kernel module to support "AMD XGMAC 10 GbE NICs" from Asustor Flashstor Gen 2 (FS6812x/FS6806x) devices.
+
+Supported cards:
+- Ethernet controller [0200]: Advanced Micro Devices, Inc. [AMD] XGMAC 10GbE Controller [1022:1458]
+
+Using TrueNAS Linux kernel sources 6.6.44 with AMD kernel patches from:
+- https://github.com/truenas/linux/tree/release/24.10.0.2
+- https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen-embedded/ryzen-embedded-v3000-series.html
+- package: AMD_Ubuntu-24.04_Kernel_6.6.43_2024_30_GA_15.tar.bz2
+
+**NOTE**: This source package is provided for testing only, without any warranty either express or implied. Use at your own risk!
+All the code comes from the above sources and repositories and is copyright (c) respective owners, distributed under the GPLv2 only.
+Please direct any support requests to Asustor, AMD or the Linux Kernel maintainers (in that order).
+
+
+VERSION
+=======
+
+- 6.6.44 => based on kernel 6.6.44 (TrueNAS SCALE ElectricEel-24.10.0.2)
+
+
+REQUIREMENTS
+============
+
+- A TrueNAS system with installed development tools (can be a VM!)
+- **NOTE**: This means it becomes unsupported by the official channels!
+	$ sudo install-dev-tools
+
+
+COMPILATION
+===========
+
+	$ make
+
+
+INSTALLATION
+============
+
+	$ sudo make install
+
+
+INITRAMFS
+=========
+
+- Update initramfs for the current running kernel (needs making the root partition writeable):
+	$ sudo mount -o remount,rw 'boot-pool/ROOT/24.10.0.2/'
+	$ sudo update-initramfs -u -k `uname -r`
+	$ sudo mount -o remount,ro 'boot-pool/ROOT/24.10.0.2/'
+
+
+CLEANING UP
+===========
+
+	$ make clean
+
+- Note: the installed kernel module will still be in /lib/modules and potentially initramfs packages, make sure to remove it from there as well if that is the intention.
+
+
+CREDITS
+=======
+- Linux Kernel: https://github.com/torvalds/linux
+- AMD Linux Drivers: https://www.amd.com/en/support/downloads/drivers.html/processors/ryzen-embedded/ryzen-embedded-v3000-series.html
+- TrueNAS: https://www.truenas.com/

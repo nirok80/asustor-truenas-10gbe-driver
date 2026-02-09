@@ -1,0 +1,3 @@
+title: ASUSTOR Flashstor 10GbE Driver for TrueNAS
+description: Patched AMD XGBE driver for ASUSTOR Flashstor Gen2 on TrueNAS SCALE 25.10+
+theme: jekyll-theme-minimal
